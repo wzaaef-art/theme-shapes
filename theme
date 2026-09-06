@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اختر شكل صفحتك الرئيسية - قالب هايجوبي برو</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #F4F5F3;
+    color: #1C1C1A;
+    line-height: 1.7;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header.page-head { text-align: center; margin-bottom: 40px; }
+  header.page-head h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+  header.page-head p { font-size: 15px; color: #5B5B57; max-width: 560px; margin: 0 auto; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+    margin-bottom: 40px;
+  }
+
+  .shape-card {
+    background: #fff;
+    border: 2px solid #E6E6E2;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .15s, transform .15s;
+  }
+  .shape-card:hover { transform: translateY(-3px); }
+  .shape-card.selected { border-color: #1C1C1A; }
+
+  .mock-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; }
+  .mock-brand { font-size: 13px; font-weight: 700; }
+  .mock-btn { font-size: 10px; padding: 5px 10px; border-radius: 6px; color: #fff; }
+
+  .mock-hero { padding: 20px 14px; }
+  .mock-eyebrow { font-size: 10px; margin-bottom: 6px; opacity: .85; }
+  .mock-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+  .mock-search { display: flex; gap: 6px; background: #fff; border-radius: 8px; padding: 5px; }
+  .mock-search-field { flex: 1; font-size: 11px; padding: 6px 8px; color: #8A8A85; }
+  .mock-search-btn { font-size: 11px; padding: 6px 12px; border-radius: 6px; color: #fff; }
+
+  .mock-body { padding: 12px 14px 16px; background: #fff; }
+  .mock-stats { display: flex; gap: 8px; margin-bottom: 12px; }
+  .mock-stat { flex: 1; text-align: center; border-radius: 8px; padding: 8px 4px; }
+  .mock-stat b { display: block; font-size: 14px; }
+  .mock-stat span { font-size: 9px; color: #8A8A85; }
+  .mock-job { border: 1px solid #ECECE8; border-radius: 8px; padding: 8px 10px; }
+  .mock-job b { display: block; font-size: 11px; }
+  .mock-job span { font-size: 10px; color: #8A8A85; }
+
+  .card-footer {
+    padding: 10px 14px;
+    border-top: 1px solid #ECECE8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .card-footer .name { font-weight: 700; }
+  .pick-mark {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid #C9C9C4;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: transparent;
+  }
+  .shape-card.selected .pick-mark { border-color: #1C1C1A; background: #1C1C1A; color: #fff; }
+
+  .panel {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #E6E6E2;
+    padding: 26px 28px;
+    display: none;
+  }
+  .panel.visible { display: block; }
+  .panel h2 { font-size: 18px; margin-bottom: 4px; }
+  .panel .hint { font-size: 13px; color: #5B5B57; margin-bottom: 18px; }
+
+  table.codes { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+  table.codes th, table.codes td { text-align: right; padding: 8px 6px; font-size: 13px; border-bottom: 1px solid #ECECE8; }
+  table.codes th { color: #8A8A85; font-weight: 600; font-size: 12px; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: middle; margin-left: 8px; border: 1px solid rgba(0,0,0,.08); }
+  code.val { direction: ltr; unicode-bidi: plaintext; font-family: monospace; }
+
+  .copy-btn {
+    background: #1C1C1A; color: #fff; border: none; font-family: inherit;
+    font-size: 13px; padding: 10px 22px; border-radius: 8px; cursor: pointer;
+  }
+  .copy-btn:active { transform: scale(.98); }
+  .copied-msg { font-size: 12px; color: #16A34A; margin-right: 10px; display: none; }
+
+  .steps { font-size: 13px; color: #3F3F3B; margin-top: 16px; }
+  .steps b { display: block; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-head">
+    <h1>اختر شكل صفحتك الرئيسية</h1>
+    <p>10 هويات لونية جاهزة لقالب هايجوبي برو. اضغط على أي تصميم لمعاينته، وهتلاقي تحته أكواد الألوان جاهزة للنسخ ولصقها في صفحة التخصيص عندك.</p>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="panel" id="panel"></div>
+
+</div>
+
+<script>
+const shapes = [
+  { name: "أخضر مزرق مهني", primary:"#0F766E", secondary:"#134E4A", accent:"#CA8A04", success:"#16A34A", warning:"#F97316", danger:"#DC2626", bgPage:"#F7F9F9", bgCard:"#FFFFFF", textMain:"#111827", textMuted:"#5B6B68", border:"#E4E9E8" },
+  { name: "نيلي جريء وكورال", primary:"#4338CA", secondary:"#312E81", accent:"#F97316", success:"#22C55E", warning:"#EAB308", danger:"#E11D48", bgPage:"#F8F8FC", bgCard:"#FFFFFF", textMain:"#1E1B4B", textMuted:"#6B7280", border:"#E5E7EB" },
+  { name: "رمادي مؤسسي زمردي", primary:"#0F172A", secondary:"#1E293B", accent:"#059669", success:"#16A34A", warning:"#D97706", danger:"#DC2626", bgPage:"#F8FAFC", bgCard:"#FFFFFF", textMain:"#0F172A", textMuted:"#64748B", border:"#E2E8F0" },
+  { name: "عنابي صحراوي دافئ", primary:"#9F1239", secondary:"#6B0F2A", accent:"#D97706", success:"#15803D", warning:"#EA580C", danger:"#B91C1C", bgPage:"#FDF6F0", bgCard:"#FFFFFF", textMain:"#3F1D12", textMuted:"#8A6F63", border:"#EAD9CC" },
+  { name: "كحلي رسمي وذهبي", primary:"#1E3A8A", secondary:"#172554", accent:"#F59E0B", success:"#15803D", warning:"#D97706", danger:"#B91C1C", bgPage:"#F5F7FA", bgCard:"#FFFFFF", textMain:"#0F172A", textMuted:"#64748B", border:"#DDE3EA" },
+  { name: "أخضر غابي وكريمي", primary:"#166534", secondary:"#14532D", accent:"#CA8A04", success:"#16A34A", warning:"#F59E0B", danger:"#DC2626", bgPage:"#FAF8F1", bgCard:"#FFFFFF", textMain:"#1C2B1F", textMuted:"#6B7A6D", border:"#E4E4D8" },
+  { name: "سماوي تقني حديث", primary:"#0891B2", secondary:"#164E63", accent:"#7C3AED", success:"#22C55E", warning:"#F59E0B", danger:"#EF4444", bgPage:"#F4F7F8", bgCard:"#FFFFFF", textMain:"#0F172A", textMuted:"#64748B", border:"#E2E8F0" },
+  { name: "خمري أنيق ووردي", primary:"#86198F", secondary:"#581C60", accent:"#E11D48", success:"#16A34A", warning:"#D97706", danger:"#BE123C", bgPage:"#FBF7FA", bgCard:"#FFFFFF", textMain:"#3B0764", textMuted:"#8B7A94", border:"#EAD9E4" },
+  { name: "أزرق محيطي منعش", primary:"#0284C7", secondary:"#075985", accent:"#FB7185", success:"#16A34A", warning:"#EAB308", danger:"#DC2626", bgPage:"#F0F9FF", bgCard:"#FFFFFF", textMain:"#0C4A6E", textMuted:"#64748B", border:"#DCEEF9" },
+  { name: "عنابي فاخر وذهبي", primary:"#7C1D2E", secondary:"#4A0F1B", accent:"#D4AF37", success:"#15803D", warning:"#B45309", danger:"#991B1B", bgPage:"#FAF6EF", bgCard:"#FFFFFF", textMain:"#2A1215", textMuted:"#7A6A63", border:"#E8DCC8" }
+];
+
+const varLabels = {
+  primary: "اللون الأساسي (primaryColor)",
+  secondary: "اللون الثانوي (secondaryColor)",
+  accent: "لون التمييز (accentColor)",
+  success: "لون النجاح (successColor)",
+  warning: "لون التحذير (warningColor)",
+  danger: "لون الخطر (dangerColor)",
+  bgPage: "خلفية الصفحة (bgPageColor)",
+  bgCard: "خلفية البطاقات (bgCardColor)",
+  textMain: "النص الأساسي (textMainColor)",
+  textMuted: "النص الثانوي (textMutedColor)",
+  border: "لون الحدود (borderColor)"
+};
+
+const grid = document.getElementById('grid');
+const panel = document.getElementById('panel');
+let selected = null;
+
+function cardHTML(s, i) {
+  return `
+  <div class="shape-card" data-i="${i}">
+    <div class="mock-header" style="background:${s.bgCard};border-bottom:1px solid ${s.border};">
+      <div class="mock-brand" style="color:${s.primary};">هايجوبي</div>
+      <div class="mock-btn" style="background:${s.primary};">أضف وظيفة</div>
+    </div>
+    <div class="mock-hero" style="background:${s.secondary};color:#fff;">
+      <div class="mock-eyebrow">أكثر من 12,000 وظيفة</div>
+      <div class="mock-title">ابحث عن وظيفتك القادمة</div>
+      <div class="mock-search">
+        <div class="mock-search-field">مسمى الوظيفة...</div>
+        <div class="mock-search-btn" style="background:${s.accent};">بحث</div>
+      </div>
+    </div>
+    <div class="mock-body" style="background:${s.bgCard};">
+      <div class="mock-stats">
+        <div class="mock-stat" style="background:${s.bgPage};"><b style="color:${s.primary};">12,400</b><span>وظيفة</span></div>
+        <div class="mock-stat" style="background:${s.bgPage};"><b style="color:${s.accent};">3,200</b><span>شركة</span></div>
+        <div class="mock-stat" style="background:${s.bgPage};"><b style="color:${s.success};">850</b><span>جديد اليوم</span></div>
+      </div>
+      <div class="mock-job" style="border-color:${s.border};">
+        <b style="color:${s.textMain};">مطور واجهات أمامية</b>
+        <span style="color:${s.textMuted};">شركة تِك جِن &nbsp;·&nbsp; القاهرة</span>
+      </div>
+    </div>
+    <div class="card-footer" style="background:${s.bgCard};">
+      <span class="name">${i + 1}. ${s.name}</span>
+      <span class="pick-mark">✓</span>
+    </div>
+  </div>`;
+}
+
+function panelHTML(s, i) {
+  const rows = Object.keys(varLabels).map(k =>
+    `<tr><td><span class="swatch" style="background:${s[k]};"></span>${varLabels[k]}</td><td><code class="val">${s[k]}</code></td></tr>`
+  ).join('');
+  const codeText = Object.keys(varLabels).map(k => `${k}Color = ${s[k]}`).join('\n');
+  return `
+    <h2>${i + 1}. ${s.name}</h2>
+    <p class="hint">دي أكواد الألوان الخاصة بالتصميم ده، انسخها وحطها في نفس الخانات بصفحة "المظهر ← تخصيص ← خيارات متقدمة" في بلوجر.</p>
+    <table class="codes"><thead><tr><th>المتغير</th><th>الكود</th></tr></thead><tbody>${rows}</tbody></table>
+    <button class="copy-btn" id="copyBtn" data-text="${codeText.replace(/"/g, '&quot;')}">نسخ الأكواد</button>
+    <span class="copied-msg" id="copiedMsg">تم النسخ</span>
+    <div class="steps">
+      <b>طريقة التطبيق:</b>
+      1. من لوحة تحكم بلوجر: المظهر ← تخصيص ← خيارات متقدمة.<br>
+      2. افتح كل مجموعة ألوان (الأساسية / الحالة / الخلفية والنصوص) وحط الكود المقابل لكل خانة من الجدول فوق.<br>
+      3. احفظ، وهتلاقي شكل موقعك اتغيّر بالكامل بنفس هوية المعاينة اللي فوق.
+    </div>
+  `;
+}
+
+shapes.forEach((s, i) => { grid.insertAdjacentHTML('beforeend', cardHTML(s, i)); });
+
+grid.addEventListener('click', (e) => {
+  const card = e.target.closest('.shape-card');
+  if (!card) return;
+  const i = parseInt(card.dataset.i, 10);
+  document.querySelectorAll('.shape-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selected = i;
+  panel.innerHTML = panelHTML(shapes[i], i);
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.id !== 'copyBtn') return;
+  const text = e.target.dataset.text;
+  navigator.clipboard.writeText(text).then(() => {
+    const msg = document.getElementById('copiedMsg');
+    msg.style.display = 'inline';
+    setTimeout(() => { msg.style.display = 'none'; }, 1800);
+  });
+});
+</script>
+</body>
+</html>
